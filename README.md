@@ -49,3 +49,5 @@ $ make download
 If you copy the included `radicals.fish` file in the correspoding folder for fish shell completions `~/.config/fish/completions/`, you can use the handy autocompletion/autosuggestions features with `radicals.py`.
 
 (Note that the fish completion file assumes that there's a program called `rad` in your `$PATH`. To make this work be sure to rename `radicals.py` to `rad` or change the fish completion file accordingly. Also `radicals.fish` should be named according to the program in your path, i.e. `rad.fish`).
+
+![radicals fish completion example](radicals.png)
