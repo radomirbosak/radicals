@@ -12,7 +12,7 @@ Radical = namedtuple('Radical', 'id characters strokes readings meanings comment
 
 
 alternatives = {
-    '亻': ['⺅', '𠆢'],
+    '人': ['⺅', '𠆢'],
     '丨': ['｜'],
     '丿': ['ノ'],
     '乙': ['⺄'],
@@ -44,14 +44,18 @@ def get_kanjis():
     return kanjis
     
 
-def get_radicals():
+def get_radicals(patch_alternatives=True):
     radicals = []
     # from https://raw.githubusercontent.com/mifunetoshiro/kanjium/master/data/source_files/radicals.txt
     with open('radicals.txt', 'r') as fp:
         for line in fp:
             l = line.split('\t')
             id_ = int(l[2])
-            characters = [l[0]] if l[1] == '' else [l[0], l[1]]
+
+            characters = [l[0], l[1]] if l[1] else [l[0]]
+            if patch_alternatives and l[0] in alternatives:
+                characters.extend(alternatives[l[0]])
+
             strokes = int(l[3])
             readings = l[4].split('・')
             meanings = l[5].split(', ')
@@ -84,6 +88,8 @@ for radical in radicals:
 
 def find_kanji_from_radical_meanings(meanings):
     results = []
+
+    # convert english words to radical characters
     searched_rads = []
     for meaning in meanings:
         if meaning in mean2radical:
