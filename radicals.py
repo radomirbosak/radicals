@@ -86,6 +86,17 @@ for radical in radicals:
 
 # print(radchar2rad['亻'])
 
+
+def _get_uncovered_radicals():
+    """
+    Return set of radicals that are used in kanji decomposition kradfile-u but
+    do not have entry in radicals.txt
+    """
+    from itertools import chain
+    radicals_from_kanjis = set(chain(*(kanji.radicals for kanji in kanjis)))
+    return radicals_from_kanjis.difference(radchar2rad.keys())
+
+
 def find_kanji_from_radical_meanings(meanings):
     results = []
 
